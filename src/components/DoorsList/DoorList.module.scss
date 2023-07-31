@@ -1,19 +1,6 @@
 @import "../../styles/colors";
 @import "../../styles/breakpoints";
 
-.logo_wrapper {
-}
-.logo {
-    animation: rotate 3s infinite linear;
-}
-@keyframes rotate {
-    from {
-        transform: rotateY(0deg);
-    }
-    to {
-        transform: rotateY(360deg);
-    }
-}
 .list_container {
     height: calc(100vh - 80px);
     flex-grow: 1;
