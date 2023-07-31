@@ -22,6 +22,13 @@
         display: none;
     }
 }
+
+.icon {
+    transform: rotate(180deg);
+    @media screen and (min-width: $tablet) {
+        transform: rotate(0deg);
+    }
+}
 .filter_container {
     display: flex;
     flex-direction: column;
