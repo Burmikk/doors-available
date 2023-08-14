@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDoorCard } from "redux/doors/doors-operations";
-import { selectDoorCard, selectFormValue, selectShowForm, selectIsLoading } from "redux/doors/doors-selectors";
+import {
+    selectDoorCard,
+    selectFormValue,
+    selectShowForm,
+    selectIsLoading,
+    selectError,
+} from "redux/doors/doors-selectors";
 import { showReserve, setFormValue, clearDoorCard, clearFormValue } from "redux/doors/doors-slice";
 import CardDesktop from "./CardDesktop/CardDesktop";
 import { useMediaQuery } from "react-responsive";
@@ -11,9 +17,11 @@ import CardTablet from "./CardTablet/CardTablet";
 import CardMobile from "./CardMobile/CardMobile";
 import Modal from "shared/components/Modal/Modal";
 import Loading from "shared/components/Loading/Loading";
+import PageNotFound from "pages/PageNotFound/PageNotFound";
 
 const DoorCard = () => {
     const card = useSelector(selectDoorCard);
+    const error = useSelector(selectError);
     const formValue = useSelector(selectFormValue);
     const isFormShow = useSelector(selectShowForm);
     const [selectText, setSelectText] = useState();
@@ -142,6 +150,9 @@ const DoorCard = () => {
                 )}
             </>
         );
+    }
+    if (error) {
+        return <PageNotFound />;
     }
 };
 
