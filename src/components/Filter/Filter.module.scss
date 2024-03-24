@@ -55,7 +55,8 @@
     @media screen and (min-width: $tablet) {
         transform: translate(-100%, 0);
         padding: 24px 32px;
-        min-width: 350px;
+        min-width: 0;
+        width: 450px;
     }
     @media screen and (min-width: $laptop) {
         // height: calc(100vh - 100px);
@@ -64,6 +65,7 @@
         pointer-events: all;
         opacity: 1;
         transform: translate(0);
+        width: 350px;
     }
 }
 
