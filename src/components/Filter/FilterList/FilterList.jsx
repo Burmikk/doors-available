@@ -17,16 +17,27 @@ const FilterList = ({ filterTitle, data, filterName, getRadioValue, getRadioName
             const elementHeigth = elementRef.current.clientHeight;
             setCurrentHeight(elementHeigth);
         }
-    }, []);
+    }, [data]);
+
     // когда появится реальная высота элемента
-    // записываем в стейт высоту которая должна быть у элемента в свернутом виде
-    // и ниже инлайново присваивем по нажатии кнопки либо общую либо свернутую высоту
+    // вычисляем высоту одной li с помощью функции calculateSmalllHeight
+    // делаем все в функции потому что нельзя вызывать перебиирающие методы массива в useEffect
+    // и ниже инлайново присваиваем по нажатии кнопки либо общую либо свернутую высоту
+
     useEffect(() => {
         if (currentHeight) {
-            const newHeight = 145;
-            setSmallHeight(newHeight);
+            calculateSmalllHeight();
         }
     }, [currentHeight]);
+    // c помощью Array.from создаем массив li и отрезаем первые 4шт.
+    // далее берем высоту li и т.к. у нас есть margin-bottom прибавляем его
+    const calculateSmalllHeight = () => {
+        if (elementRef.current) {
+            const firstFourItems = Array.from(elementRef.current.querySelectorAll("li")).slice(0, 4);
+            const smallHeight = firstFourItems.reduce((acc, curr) => acc + curr.offsetHeight + 12, 0);
+            setSmallHeight(smallHeight);
+        }
+    };
 
     useEffect(() => {
         if (selectedName) {
@@ -86,8 +97,9 @@ const FilterList = ({ filterTitle, data, filterName, getRadioValue, getRadioName
                 </p>
             </div>
             <ul
-                style={{ height: showMore ? currentHeight : smallHeight }}
+                style={{ maxHeight: showMore ? currentHeight : smallHeight }}
                 ref={elementRef}
+                // className={`${scss.filter_list} ${showMore ? "" : scss.filter_list_hidden}`}
                 className={scss.filter_list}
             >
                 {filterItem}
